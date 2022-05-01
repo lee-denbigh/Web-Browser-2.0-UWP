@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DataAccessLibrary;
 
 namespace Web_Browser_2._0_UWP
 {
@@ -30,6 +31,8 @@ namespace Web_Browser_2._0_UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            DataAccess.InitialiseDatabase();
         }
 
         /// <summary>

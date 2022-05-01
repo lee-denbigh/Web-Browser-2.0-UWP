@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    d:DesignHeight="1024"
-    d:DesignWidth="720">
+    d:DesignHeight="720"
+    d:DesignWidth="1024">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -47,9 +47,7 @@
             </StackPanel>
 
             <!--Search Bar-->
-            <AutoSuggestBox Grid.Column="1" Margin="0,10" Padding="10,0,50,0" />
-            <!--Search Icon-->
-            <SymbolIcon Symbol="Find" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,5,0" />
+            <AutoSuggestBox Grid.Column="1" Margin="0,10" Padding="10,0,50,0" QueryIcon="Find" />
 
             <!--Menu Button-->
             <Button x:Name="MenuButton" Padding="0" Width="30" Height="30" Background="{x:Null}" Margin="10" Grid.Column="2" HorizontalAlignment="Right" BorderThickness="0">
