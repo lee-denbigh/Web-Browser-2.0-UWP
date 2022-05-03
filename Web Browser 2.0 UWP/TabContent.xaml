@@ -26,12 +26,12 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Horizontal" Padding="10">
-                <Button x:Name="BackButton" Padding="0" Width="30" Height="30" Background="{x:Null}" Margin="0,0,10,0" BorderThickness="0">
+                <Button x:Name="BackButton" Padding="0" Width="30" Height="30" Background="{x:Null}" Margin="0,0,10,0" BorderThickness="0" Click="BackButton_Click">
                     <Viewbox Width="16" Height="16">
                         <SymbolIcon Symbol="Back" />
                     </Viewbox>
                 </Button>
-                <Button x:Name="ForwardButton" Padding="0" Width="30" Height="30" Background="{x:Null}" BorderThickness="0">
+                <Button x:Name="ForwardButton" Padding="0" Width="30" Height="30" Background="{x:Null}" BorderThickness="0" Click="ForwardButton_Click">
                     <Viewbox Width="16" Height="16">
                         <SymbolIcon Symbol="Forward" />
                     </Viewbox>
@@ -39,7 +39,7 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="HomeButton" Padding="0" Width="30" Height="30" Background="{x:Null}" Margin="10" BorderThickness="0">
+                <Button x:Name="HomeButton" Padding="0" Width="30" Height="30" Background="{x:Null}" Margin="10" BorderThickness="0" Click="HomeButton_Click">
                     <Viewbox Width="16" Height="16">
                         <SymbolIcon Symbol="Home" />
                     </Viewbox>
@@ -47,13 +47,29 @@
             </StackPanel>
 
             <!--Search Bar-->
-            <AutoSuggestBox Grid.Column="1" Margin="0,10" Padding="10,0,50,0" QueryIcon="Find" QuerySubmitted="AutoSuggestBox_QuerySubmitted"/>
+            <AutoSuggestBox x:Name="SearchUrlBox" Grid.Column="1" Margin="0,10" Padding="10,0,50,0" QueryIcon="Find" QuerySubmitted="AutoSuggestBox_QuerySubmitted"/>
 
             <!--Menu Button-->
             <Button x:Name="MenuButton" Padding="0" Width="30" Height="30" Background="{x:Null}" Margin="10" Grid.Column="2" HorizontalAlignment="Right" BorderThickness="0">
+                <Button.Flyout>
+                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                        <MenuFlyoutItem x:Name="NewTabMenuItem" Text="New Tab" Click="NewTabMenuItem_Click" />
+                        <MenuFlyoutItem Text="New Window" />
+                        <MenuFlyoutItem Text="New Private Window" />
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutItem Text="Settings" />
+                        <MenuFlyoutItem Text="History" />
+                        <MenuFlyoutItem Text="Bookmarks" />
+                        <MenuFlyoutItem Text="Downloads" />
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutItem Text="Developer Tools" />
+                    </MenuFlyout>
+                </Button.Flyout>
+                
                 <Viewbox Width="16" Height="16">
                     <SymbolIcon Symbol="More" />
                 </Viewbox>
+                
             </Button>
         </Grid>
         

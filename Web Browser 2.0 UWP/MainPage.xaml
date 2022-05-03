@@ -11,7 +11,7 @@
     Loaded="Page_Loaded">
 
     <Grid>
-        <controls:TabView VerticalAlignment="Stretch">
+        <controls:TabView x:Name="OurTabView" VerticalAlignment="Stretch" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested">
             <controls:TabViewItem>
                 <controls:TabViewItem.Content>
                     <local:TabContent x:Name="testTabContent" WebAddress="https://www.google.com" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />

@@ -21,12 +21,11 @@ namespace Web_Browser_2._0_UWP
 {
     public sealed partial class TabContent : UserControl
     {
+
         public TabContent()
         {
             this.InitializeComponent();
         }
-
-
 
         public string WebAddress
         {
@@ -38,12 +37,37 @@ namespace Web_Browser_2._0_UWP
         public static readonly DependencyProperty WebAddressProperty =
             DependencyProperty.Register("WebAddress", typeof(string), typeof(TabContent), new PropertyMetadata("https://www.google.com"));
 
-        private async void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            // Add the search term to the database table - SearchTerms
-            DataAccess.AddSearchTermToTable(sender.Text, DateTime.Now, 0);
-            // Search string and navigate
-            Browser.Source = new Uri("https://www.google.co.uk/search?q=" + sender.Text);
+            if (sender.Text != string.Empty)
+            {
+                // Add the search term to the database table - SearchTerms
+                DataAccess.AddSearchTermToTable(sender.Text, DateTime.Now, 0);
+                // Search string and navigate
+                Browser.Source = new Uri("https://www.google.co.uk/search?q=" + sender.Text); 
+            }
+        }
+
+        private void ForwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(Browser.CanGoForward)
+                Browser.GoForward();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(Browser.CanGoBack)
+                Browser.GoBack();
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.Source = new Uri("https://www.google.co.uk/");
+        }
+
+        private void NewTabMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
