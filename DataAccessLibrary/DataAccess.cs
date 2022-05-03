@@ -26,11 +26,34 @@ namespace DataAccessLibrary
 
                 String searchTermsTableCommand = "CREATE TABLE IF NOT " +
                     "EXISTS searchterms (searchtermID INTEGER PRIMARY KEY," +
-                    "searchterm VARCHAR(2048) NOT NULL)";
+                    "SearchTerm VARCHAR(2048) NOT NULL," +
+                    "DateSearched DATE, " +
+                    "TermSearchedAmount INTEGER)";
 
                 SqliteCommand createTable = new SqliteCommand(searchTermsTableCommand, conn);
 
                 createTable.ExecuteReader();
+            }
+        }
+
+        public static void AddSearchTermToTable(string SearchTerm, DateTime DateSearched, int TermSearchedAmount)
+        {
+            string dp = Path.Combine(ApplicationData.Current.LocalFolder.Path, dbPath);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dp}"))
+            {
+                conn.Open();
+
+                SqliteCommand insertCommand = new SqliteCommand();
+                insertCommand.Connection = conn;
+
+                insertCommand.CommandText = "INSERT INTO searchterms VALUES(NULL, @SearchTerm, @DateSearched, @TermSearchedAmount)";
+                insertCommand.Parameters.AddWithValue("@SearchTerm", SearchTerm);
+                insertCommand.Parameters.AddWithValue("@DateSearched", DateSearched);
+                insertCommand.Parameters.AddWithValue("@TermSearchedAmount", TermSearchedAmount);
+
+                insertCommand.ExecuteReader();
+
+                conn.Close();
             }
         }
     }
