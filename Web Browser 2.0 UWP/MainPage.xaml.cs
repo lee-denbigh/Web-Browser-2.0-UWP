@@ -14,19 +14,71 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DataAccessLibrary;
 using Microsoft.UI.Xaml.Controls;
+using Windows.ApplicationModel.Core;
+using Windows.UI.ViewManagement;
+using Windows.UI;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Web_Browser_2._0_UWP
 {
+
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        CoreApplicationViewTitleBar coreTitleBar;
+        ApplicationViewTitleBar titleBar;
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+
+            titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+
+            Window.Current.SetTitleBar(AppTitleBar);
+
+            coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
+
+            coreTitleBar.IsVisibleChanged += CoreTitleBar_IsVisibleChanged;
+
+            Window.Current.CoreWindow.Activated += CoreWindow_Activated;
+        }
+
+        private void CoreWindow_Activated(CoreWindow sender, WindowActivatedEventArgs args)
+        {
+            UISettings settings = new UISettings();
+
+            if(args.WindowActivationState == CoreWindowActivationState.Deactivated)
+            {
+                AppTitleBar.Background = new SolidColorBrush(Colors.Red);
+            }
+        }
+
+        private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            LeftPaddingColumn.Width = new GridLength(coreTitleBar.SystemOverlayLeftInset);
+            RightPaddingColumn.Width = new GridLength(coreTitleBar.SystemOverlayRightInset);
+        }
+
+        private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            if (sender.IsVisible)
+            {
+                AppTitleBar.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                AppTitleBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
