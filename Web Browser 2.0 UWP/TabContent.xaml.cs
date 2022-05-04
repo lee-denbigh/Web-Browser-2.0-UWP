@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DataAccessLibrary;
 using Windows.UI.Popups;
+using System.Diagnostics;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -21,6 +22,8 @@ namespace Web_Browser_2._0_UWP
 {
     public sealed partial class TabContent : UserControl
     {
+
+        List<string> searchTermsLocal = new List<string>();
 
         public TabContent()
         {
@@ -44,8 +47,38 @@ namespace Web_Browser_2._0_UWP
                 // Add the search term to the database table - SearchTerms
                 DataAccess.AddSearchTermToTable(sender.Text, DateTime.Now, 0);
                 // Search string and navigate
-                Browser.Source = new Uri("https://www.google.co.uk/search?q=" + sender.Text); 
+                Browser.Source = new Uri("https://www.google.co.uk/search?q=" + sender.Text);
+                GetSearchTermsList();
+                
             }
+        }
+
+        private void SearchUrlBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            var searches = searchTermsLocal;
+            List<string> filteredSearchTerms = new List<string>();
+
+            foreach (string searchTerm in searches)
+            {
+                //TODO ? Change StartsWith to Contains
+                if (searchTerm.ToLower().StartsWith(sender.Text.ToLower()))
+                {
+                    filteredSearchTerms.Add(searchTerm);
+                }
+            }
+
+            sender.ItemsSource = filteredSearchTerms; 
+        }
+
+        private void SearchUrlBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            // Search string and navigate
+            Browser.Source = new Uri("https://www.google.co.uk/search?q=" + sender.Text);
+        }
+
+        private void SearchUrlBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            GetSearchTermsList();
         }
 
         private void ForwardButton_Click(object sender, RoutedEventArgs e)
@@ -68,6 +101,18 @@ namespace Web_Browser_2._0_UWP
         private void NewTabMenuItem_Click(object sender, RoutedEventArgs e)
         {
             
+            
         }
+
+        private void GetSearchTermsList()
+        {
+            //Debug.WriteLine("Focus Got");
+            // Clear the search term list
+            searchTermsLocal.Clear();
+            // Gets the search terms from the database.
+            searchTermsLocal = DataAccess.GetAllSearchedTerms();
+        }
+
+        
     }
 }
