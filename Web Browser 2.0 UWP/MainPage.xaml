@@ -25,7 +25,8 @@
         </Grid>
         
         <controls:TabView x:Name="OurTabView" Grid.RowSpan="2" Margin="0,-9,0,0" Canvas.ZIndex="1" Background="{x:Null}" VerticalAlignment="Stretch" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested">
-            <controls:TabViewItem>
+            <controls:TabViewItem HeaderTemplate="{StaticResource TabHeaderTemplate}">
+                
                 <controls:TabViewItem.Content>
                     <local:TabContent x:Name="testTabContent" WebAddress="https://www.google.com" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />
                 </controls:TabViewItem.Content>

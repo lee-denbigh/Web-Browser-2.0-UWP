@@ -7,7 +7,7 @@
     <Application.Resources>
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
-                <!-- Other app resources here -->
+                <ResourceDictionary Source="Resources/DataTemplates.xaml" />
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>
     </Application.Resources>

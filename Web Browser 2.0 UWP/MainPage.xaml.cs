@@ -18,6 +18,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI;
 using Windows.UI.Core;
+using Web_Browser_2._0_UWP.Classes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -88,9 +89,16 @@ namespace Web_Browser_2._0_UWP
         public void AddTab()
         {
             var newTab = new TabViewItem();
-            newTab.IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Document };
-            newTab.Header = "New Document";
+            newTab.HeaderTemplate = Application.Current.Resources["TabHeaderTemplate"] as DataTemplate;
+            
 
+            TabDetails tabDetails = new TabDetails();
+            tabDetails.TabHeaderTitle = "Google";
+            tabDetails.SiteUrl = "https://www.google.com";
+            tabDetails.TabHeaderFavicon = "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + tabDetails.SiteUrl + "&size=16";
+
+            newTab.DataContext = tabDetails;
+            
             TabContent tabContent = new TabContent();
             tabContent.WebAddress = "https://www.google.com";
             newTab.Content = tabContent;
@@ -100,15 +108,7 @@ namespace Web_Browser_2._0_UWP
 
         private void TabView_AddTabButtonClick(Microsoft.UI.Xaml.Controls.TabView sender, object args)
         {
-            var newTab = new TabViewItem();
-            newTab.IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Document };
-            newTab.Header = "New Document";
-
-            TabContent tabContent = new TabContent();
-            tabContent.WebAddress = "https://www.google.com";
-            newTab.Content = tabContent;
-
-            sender.TabItems.Add(newTab);
+            AddTab();
         }
 
         private void TabView_TabCloseRequested(Microsoft.UI.Xaml.Controls.TabView sender, Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs args)
