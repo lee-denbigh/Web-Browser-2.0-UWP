@@ -25,10 +25,6 @@ namespace Web_Browser_2._0_UWP
 
         List<string> searchTermsLocal = new List<string>();
 
-        public string HostUrl
-        {
-            get => 
-        }
 
         public TabContent()
         {
