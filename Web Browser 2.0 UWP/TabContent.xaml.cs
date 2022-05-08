@@ -105,8 +105,7 @@ namespace Web_Browser_2._0_UWP
 
         private void NewTabMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            
-            
+            MainPage.Current.AddTab();
         }
 
         private void GetSearchTermsList()
@@ -118,15 +117,16 @@ namespace Web_Browser_2._0_UWP
             searchTermsLocal = DataAccess.GetAllSearchedTerms();
         }
 
-        private async void Browser_NavigationCompleted(Microsoft.UI.Xaml.Controls.WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        private void Browser_NavigationCompleted(Microsoft.UI.Xaml.Controls.WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             CurrentTab.HeaderTemplate = Application.Current.Resources["TabHeaderTemplate"] as DataTemplate;
 
             TabDetails tabDetails = new TabDetails();
             tabDetails.SiteUrl = Browser.CoreWebView2.Source;
             tabDetails.TabHeaderTitle = Browser.CoreWebView2.DocumentTitle;
-            BitmapImage bmi = new BitmapImage(new Uri(Browser.CoreWebView2.FaviconUri));
-            tabDetails.TabHeaderFavicon = bmi; 
+
+            BitmapImage bmi = new BitmapImage(new Uri("https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + tabDetails.SiteUrl + "&size=16"));
+            tabDetails.TabHeaderFavicon = bmi;
 
             CurrentTab.DataContext = tabDetails;
         }

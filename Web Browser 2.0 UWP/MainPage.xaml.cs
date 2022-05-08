@@ -32,12 +32,16 @@ namespace Web_Browser_2._0_UWP
     public sealed partial class MainPage : Page
     {
 
+        public static MainPage Current;
+
         CoreApplicationViewTitleBar coreTitleBar;
         ApplicationViewTitleBar titleBar;
 
         public MainPage()
         {
             this.InitializeComponent();
+
+            Current = this;
 
             coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;

@@ -7,7 +7,7 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
             <Image Source="{Binding TabHeaderFavicon}"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Width="20" Height="20"/>
+                   Width="16" Height="16"/>
             <TextBlock Text="{Binding TabHeaderTitle}" VerticalAlignment="Center" HorizontalAlignment="Left"
                        Margin="10,0,0,0" />
         </StackPanel>
