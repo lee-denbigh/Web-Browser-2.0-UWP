@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Navigation;
 using DataAccessLibrary;
 using Windows.UI.Popups;
 using System.Diagnostics;
+using Microsoft.UI.Xaml.Controls;
+using Web_Browser_2._0_UWP.Classes;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -25,6 +28,7 @@ namespace Web_Browser_2._0_UWP
 
         List<string> searchTermsLocal = new List<string>();
 
+        public TabViewItem CurrentTab;
 
         public TabContent()
         {
@@ -114,6 +118,17 @@ namespace Web_Browser_2._0_UWP
             searchTermsLocal = DataAccess.GetAllSearchedTerms();
         }
 
-        
+        private async void Browser_NavigationCompleted(Microsoft.UI.Xaml.Controls.WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        {
+            CurrentTab.HeaderTemplate = Application.Current.Resources["TabHeaderTemplate"] as DataTemplate;
+
+            TabDetails tabDetails = new TabDetails();
+            tabDetails.SiteUrl = Browser.CoreWebView2.Source;
+            tabDetails.TabHeaderTitle = Browser.CoreWebView2.DocumentTitle;
+            BitmapImage bmi = new BitmapImage(new Uri(Browser.CoreWebView2.FaviconUri));
+            tabDetails.TabHeaderFavicon = bmi; 
+
+            CurrentTab.DataContext = tabDetails;
+        }
     }
 }

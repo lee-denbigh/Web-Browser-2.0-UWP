@@ -77,7 +77,7 @@
         </Grid>
         
         <!--WebView2-->
-        <controls:WebView2 x:Name="Browser" Source="https://www.google.com" Grid.Row="1" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        <controls:WebView2 x:Name="Browser" Source="https://www.google.com" Grid.Row="1" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" NavigationCompleted="Browser_NavigationCompleted"/>
         
     </Grid>
 </UserControl>

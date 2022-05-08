@@ -91,15 +91,8 @@ namespace Web_Browser_2._0_UWP
             var newTab = new TabViewItem();
             newTab.HeaderTemplate = Application.Current.Resources["TabHeaderTemplate"] as DataTemplate;
             
-
-            TabDetails tabDetails = new TabDetails();
-            tabDetails.TabHeaderTitle = "Google";
-            tabDetails.SiteUrl = "https://www.google.com";
-            tabDetails.TabHeaderFavicon = "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + tabDetails.SiteUrl + "&size=16";
-
-            newTab.DataContext = tabDetails;
-            
             TabContent tabContent = new TabContent();
+            tabContent.CurrentTab = newTab;
             tabContent.WebAddress = "https://www.google.com";
             newTab.Content = tabContent;
 
