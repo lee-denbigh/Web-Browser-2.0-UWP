@@ -56,6 +56,18 @@ namespace Web_Browser_2._0_UWP
             coreTitleBar.IsVisibleChanged += CoreTitleBar_IsVisibleChanged;
 
             Window.Current.CoreWindow.Activated += CoreWindow_Activated;
+
+            DefaultTabLoad();
+        }
+
+        private void DefaultTabLoad()
+        {
+            DefaultTab.HeaderTemplate = Application.Current.Resources["TabHeaderTemplate"] as DataTemplate;
+
+            TabContent tabContent = new TabContent();
+            tabContent.CurrentTab = DefaultTab;
+            tabContent.WebAddress = "https://www.google.com";
+            DefaultTab.Content = tabContent;
         }
 
         private void CoreWindow_Activated(CoreWindow sender, WindowActivatedEventArgs args)
@@ -64,7 +76,11 @@ namespace Web_Browser_2._0_UWP
 
             if(args.WindowActivationState == CoreWindowActivationState.Deactivated)
             {
-                AppTitleBar.Background = new SolidColorBrush(Colors.Red);
+                AppTitleBar.Background = new SolidColorBrush(Colors.DarkSlateGray);
+            }
+            else
+            {
+                AppTitleBar.Background = new SolidColorBrush(Colors.Transparent);
             }
         }
 
@@ -101,6 +117,7 @@ namespace Web_Browser_2._0_UWP
             newTab.Content = tabContent;
 
             OurTabView.TabItems.Add(newTab);
+            OurTabView.SelectedItem = newTab;
         }
 
         private void TabView_AddTabButtonClick(Microsoft.UI.Xaml.Controls.TabView sender, object args)

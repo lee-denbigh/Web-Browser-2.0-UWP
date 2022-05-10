@@ -129,6 +129,36 @@ namespace Web_Browser_2._0_UWP
             tabDetails.TabHeaderFavicon = bmi;
 
             CurrentTab.DataContext = tabDetails;
+
+            // Add string to url bar
+            SearchUrlBox.Text = Browser.CoreWebView2.Source;
+
+            StopButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void DownloadMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.CoreWebView2.OpenDefaultDownloadDialog();
+        }
+
+        private void DevtoolsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.CoreWebView2.OpenDevToolsWindow();
+        }
+
+        private void refButton_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.CoreWebView2.Reload();
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.CoreWebView2.Stop();
+        }
+
+        private void Browser_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            StopButton.Visibility = Visibility.Visible;
         }
     }
 }
