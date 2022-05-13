@@ -172,5 +172,11 @@ namespace Web_Browser_2._0_UWP
             args.Handled = true;
             MainPage.Current.AddTab(args.Uri);
         }
+
+        private void HistoryMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            HistoryFlyoutMenu.ShowAt(MenuButton);
+            HistoryFlyoutMenu.Placement = FlyoutPlacementMode.TopEdgeAlignedRight;
+        }
     }
 }

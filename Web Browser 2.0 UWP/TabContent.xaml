@@ -8,7 +8,8 @@
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     d:DesignHeight="720"
-    d:DesignWidth="1024">
+    d:DesignWidth="1024"
+    RequestedTheme="Dark">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -72,7 +73,50 @@
                         <MenuFlyoutItem Text="New Private Window" />
                         <MenuFlyoutSeparator />
                         <MenuFlyoutItem Text="Settings" />
-                        <MenuFlyoutItem Text="History" />
+                        <MenuFlyoutItem x:Name="HistoryMenuItem" Text="History" Click="HistoryMenuItem_Click">
+                            <MenuFlyoutItem.ContextFlyout>
+                                <Flyout x:Name="HistoryFlyoutMenu" Placement="TopEdgeAlignedRight" >
+                                    <Grid Width="300" Height="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="35" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        
+                                        <!--Buttons-->
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                            <Button x:Name="SearchHistoryMenuFlyout" Padding="0" Height="32" Width="32" Margin="0,0,10,0" BorderThickness="0" Background="Transparent">
+                                                <Viewbox Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <SymbolIcon Symbol="Find" />
+                                                </Viewbox>
+                                            </Button>
+                                            <Button x:Name="MenuHistoryMenuFlyout" Padding="0" Height="32" Width="32" BorderThickness="0" Background="Transparent">
+                                                <Button.Flyout>
+                                                    <MenuFlyout>
+                                                        <MenuFlyoutItem x:Name="ClearHistoryDataMenuItem" Text="Clear History Data">
+                                                            <MenuFlyoutItem.Icon>
+                                                                <SymbolIcon Symbol="Clear" />
+                                                            </MenuFlyoutItem.Icon>
+                                                        </MenuFlyoutItem>
+                                                        <MenuFlyoutItem x:Name="OpenHistoryMenuItem" Text="Open History Page" >
+                                                            <MenuFlyoutItem.Icon>
+                                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;"/>
+                                                            </MenuFlyoutItem.Icon>
+                                                        </MenuFlyoutItem>
+                                                    </MenuFlyout>
+                                                </Button.Flyout>
+                                                <Viewbox Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <SymbolIcon Symbol="More" />
+                                                </Viewbox>
+                                            </Button>
+                                        </StackPanel>
+
+                                        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                            
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Flyout>
+                            </MenuFlyoutItem.ContextFlyout>
+                        </MenuFlyoutItem>
                         <MenuFlyoutItem Text="Bookmarks" />
                         <MenuFlyoutItem x:Name="DownloadMenuItem" Text="Downloads" Click="DownloadMenuItem_Click" />
                         <MenuFlyoutSeparator />
