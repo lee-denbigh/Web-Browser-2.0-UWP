@@ -160,5 +160,17 @@ namespace Web_Browser_2._0_UWP
         {
             StopButton.Visibility = Visibility.Visible;
         }
+
+        private void Browser_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        {
+            Browser.CoreWebView2.NewWindowRequested += Browser_NewWindowRequested;
+            Browser.Source = new Uri(WebAddress);
+        }
+
+        private void Browser_NewWindowRequested(Microsoft.Web.WebView2.Core.CoreWebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NewWindowRequestedEventArgs args)
+        {
+            args.Handled = true;
+            MainPage.Current.AddTab(args.Uri);
+        }
     }
 }

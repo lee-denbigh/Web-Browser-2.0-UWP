@@ -106,14 +106,14 @@ namespace Web_Browser_2._0_UWP
         {
         }
 
-        public void AddTab()
+        public void AddTab(string Address = "https://www.bing.com")
         {
             var newTab = new TabViewItem();
             newTab.HeaderTemplate = Application.Current.Resources["TabHeaderTemplate"] as DataTemplate;
             
             TabContent tabContent = new TabContent();
             tabContent.CurrentTab = newTab;
-            tabContent.WebAddress = "https://www.google.com";
+            tabContent.WebAddress = Address;
             newTab.Content = tabContent;
 
             OurTabView.TabItems.Add(newTab);
