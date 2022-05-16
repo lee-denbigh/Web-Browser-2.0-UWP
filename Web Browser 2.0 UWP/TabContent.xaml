@@ -99,7 +99,7 @@
                                                         </MenuFlyoutItem>
                                                         <MenuFlyoutItem x:Name="OpenHistoryMenuItem" Text="Open History Page" >
                                                             <MenuFlyoutItem.Icon>
-                                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;"/>
+                                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;"/>
                                                             </MenuFlyoutItem.Icon>
                                                         </MenuFlyoutItem>
                                                     </MenuFlyout>
