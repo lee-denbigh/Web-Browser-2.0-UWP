@@ -178,5 +178,26 @@ namespace Web_Browser_2._0_UWP
             HistoryFlyoutMenu.ShowAt(MenuButton);
             HistoryFlyoutMenu.Placement = FlyoutPlacementMode.TopEdgeAlignedRight;
         }
+
+        private void SearchHistoryMenuFlyout_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleSearchHistory();
+        }
+
+        private void ToggleSearchHistory()
+        {
+            if(HistorySearchMenuItem.Visibility == Visibility.Collapsed)
+            {
+                HistorySearchMenuItem.Visibility = Visibility.Visible;
+                HistorySmallTitle.Visibility = Visibility.Collapsed;
+            }
+                
+            else
+            {
+                HistorySearchMenuItem.Visibility = Visibility.Collapsed;
+                HistorySmallTitle.Visibility = Visibility.Visible;
+            }
+                
+        }
     }
 }

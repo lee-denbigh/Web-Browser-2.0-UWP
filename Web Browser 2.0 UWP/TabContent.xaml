@@ -81,10 +81,16 @@
                                             <RowDefinition Height="35" />
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
                                         
                                         <!--Buttons-->
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                            <Button x:Name="SearchHistoryMenuFlyout" Padding="0" Height="32" Width="32" Margin="0,0,10,0" BorderThickness="0" Background="Transparent">
+                                        <TextBlock x:Name="HistorySmallTitle" Text="History" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Margin="10,0" />
+                                        <TextBox x:Name="HistorySearchMenuItem" Height="35" Visibility="Collapsed" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                            <Button x:Name="SearchHistoryMenuFlyout" Padding="0" Height="32" Width="32" Margin="0,0,10,0" BorderThickness="0" Background="Transparent" Click="SearchHistoryMenuFlyout_Click">
                                                 <Viewbox Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                     <SymbolIcon Symbol="Find" />
                                                 </Viewbox>
@@ -109,10 +115,10 @@
                                                 </Viewbox>
                                             </Button>
                                         </StackPanel>
-
-                                        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                            
-                                        </ScrollViewer>
+                                        <!--History-->
+                                        <ListView x:Name="SmallHistoryMenu" Grid.Row="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
+                                            <ListViewItem Style="{StaticResource HistoryListViwItem}" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" ContentTemplate="{StaticResource SmallHistoryDataTemplate}" />
+                                        </ListView>
                                     </Grid>
                                 </Flyout>
                             </MenuFlyoutItem.ContextFlyout>
