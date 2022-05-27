@@ -6,78 +6,41 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using Windows.Storage;
+using DataAccessLibrary.Classes;
 
 namespace DataAccessLibrary
 {
     public static class DataAccess
     {
-        static string dbPath = "webbrowser2.db";
-
-        // This will create the database and tables.
-        public static async void InitialiseDatabase()
+        public static async Task<List<HistoryDetails>> GetHistoryDetails()
         {
-            await ApplicationData.Current.LocalFolder.CreateFileAsync(dbPath, CreationCollisionOption.OpenIfExists);
-            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, dbPath);
+            List<HistoryDetails> historyDetails = new List<HistoryDetails>();
 
-            using (SqliteConnection conn =
-                new SqliteConnection($"Filename={dbpath}"))
+            StorageFolder EBFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("EBWebView");
+            StorageFolder DefaultFolder = await EBFolder.GetFolderAsync("Default");
+            StorageFile HistoryFile = await DefaultFolder.GetFileAsync("History");
+
+            string DBPath = HistoryFile.Path;
+
+            using (SqliteConnection conn = new SqliteConnection($"Filename={DBPath}"))
             {
                 conn.Open();
 
-                String searchTermsTableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS searchterms (searchtermID INTEGER PRIMARY KEY," +
-                    "SearchTerm VARCHAR(2048) NOT NULL," +
-                    "DateSearched DATE, " +
-                    "TermSearchedAmount INTEGER)";
+                SqliteCommand selectHistoryCommand = new SqliteCommand("SELECT url, title FROM urls", conn);
 
-                SqliteCommand createTable = new SqliteCommand(searchTermsTableCommand, conn);
+                SqliteDataReader query = selectHistoryCommand.ExecuteReader();
 
-                createTable.ExecuteReader();
-            }
-        }
-
-        public static void AddSearchTermToTable(string SearchTerm, DateTime DateSearched, int TermSearchedAmount)
-        {
-            string dp = Path.Combine(ApplicationData.Current.LocalFolder.Path, dbPath);
-            using (SqliteConnection conn = new SqliteConnection($"Filename={dp}"))
-            {
-                conn.Open();
-
-                SqliteCommand insertCommand = new SqliteCommand();
-                insertCommand.Connection = conn;
-
-                insertCommand.CommandText = "INSERT INTO searchterms VALUES(NULL, @SearchTerm, @DateSearched, @TermSearchedAmount)";
-                insertCommand.Parameters.AddWithValue("@SearchTerm", SearchTerm);
-                insertCommand.Parameters.AddWithValue("@DateSearched", DateSearched);
-                insertCommand.Parameters.AddWithValue("@TermSearchedAmount", TermSearchedAmount);
-
-                insertCommand.ExecuteReader();
-
-                conn.Close();
-            }
-        }
-
-        public static List<string> GetAllSearchedTerms()
-        {
-            List<string> terms = new List<string>();
-
-            string dp = Path.Combine(ApplicationData.Current.LocalFolder.Path, dbPath);
-            using (SqliteConnection conn = new SqliteConnection($"Filename={dp}"))
-            {
-                conn.Open();
-
-                SqliteCommand selectTermsCommand = new SqliteCommand("SELECT SearchTerm FROM searchterms", conn);
-
-                SqliteDataReader reader = selectTermsCommand.ExecuteReader();
-                while (reader.Read())
+                while (query.Read())
                 {
-                    terms.Add(reader.GetString(0));
-                }
+                    HistoryDetails hd = new HistoryDetails();
+                    hd.Url = query.GetString(0);
+                    hd.Title = query.GetString(1);
 
-                conn.Close();
+                    historyDetails.Add(hd);
+                }
             }
 
-            return terms;
+            return historyDetails;
         }
     }
 }

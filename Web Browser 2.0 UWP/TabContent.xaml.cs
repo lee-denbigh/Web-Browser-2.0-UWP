@@ -49,8 +49,6 @@ namespace Web_Browser_2._0_UWP
         {
             if (sender.Text != string.Empty)
             {
-                // Add the search term to the database table - SearchTerms
-                DataAccess.AddSearchTermToTable(sender.Text, DateTime.Now, 0);
                 // Search string and navigate
                 Browser.Source = new Uri("https://www.google.co.uk/search?q=" + sender.Text);
                 GetSearchTermsList();
@@ -113,8 +111,6 @@ namespace Web_Browser_2._0_UWP
             //Debug.WriteLine("Focus Got");
             // Clear the search term list
             searchTermsLocal.Clear();
-            // Gets the search terms from the database.
-            searchTermsLocal = DataAccess.GetAllSearchedTerms();
         }
 
         private void Browser_NavigationCompleted(Microsoft.UI.Xaml.Controls.WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
@@ -173,8 +169,21 @@ namespace Web_Browser_2._0_UWP
             MainPage.Current.AddTab(args.Uri);
         }
 
-        private void HistoryMenuItem_Click(object sender, RoutedEventArgs e)
+        private async void HistoryMenuItem_Click(object sender, RoutedEventArgs e)
         {
+
+            var historyList = await DataAccess.GetHistoryDetails();
+
+            foreach (var item in historyList)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.ContentTemplate = Application.Current.Resources["SmallHistoryDataTemplate"] as DataTemplate;
+                lvi.DataContext = item;
+                lvi.Tag = item.Url;
+
+                SmallHistoryMenu.Items.Add(lvi);
+            }
+
             HistoryFlyoutMenu.ShowAt(MenuButton);
             HistoryFlyoutMenu.Placement = FlyoutPlacementMode.TopEdgeAlignedRight;
         }
@@ -198,6 +207,13 @@ namespace Web_Browser_2._0_UWP
                 HistorySmallTitle.Visibility = Visibility.Visible;
             }
                 
+        }
+
+        private void SmallHistoryMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListViewItem item = SmallHistoryMenu.SelectedItem as ListViewItem;
+
+            Browser.Source = new Uri(item.Tag.ToString());
         }
     }
 }

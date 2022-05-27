@@ -116,8 +116,7 @@
                                             </Button>
                                         </StackPanel>
                                         <!--History-->
-                                        <ListView x:Name="SmallHistoryMenu" Grid.Row="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
-                                            <ListViewItem Style="{StaticResource HistoryListViwItem}" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" ContentTemplate="{StaticResource SmallHistoryDataTemplate}" />
+                                        <ListView x:Name="SmallHistoryMenu" Grid.Row="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="SmallHistoryMenu_SelectionChanged">
                                         </ListView>
                                     </Grid>
                                 </Flyout>

@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <Image Width="20" Source="Assets/StoreLogo.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            <TextBlock Text="This is a history item" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0" />
+            <TextBlock Text="{Binding Title}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0" />
             <FontIcon Width="20" Grid.Column="2" FontFamily="Segoe MDL2 Assets" Glyph="&#xE76C;" FontSize="10"/>
             
         </Grid>

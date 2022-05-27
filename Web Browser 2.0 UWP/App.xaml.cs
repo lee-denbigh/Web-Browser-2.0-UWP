@@ -31,8 +31,6 @@ namespace Web_Browser_2._0_UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-
-            DataAccess.InitialiseDatabase();
         }
 
         /// <summary>
