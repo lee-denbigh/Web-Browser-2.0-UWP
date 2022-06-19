@@ -130,6 +130,7 @@ namespace Web_Browser_2._0_UWP
             SearchUrlBox.Text = Browser.CoreWebView2.Source;
 
             StopButton.Visibility = Visibility.Collapsed;
+            BrowserProgress.Visibility = Visibility.Collapsed;
         }
 
         private void DownloadMenuItem_Click(object sender, RoutedEventArgs e)
@@ -155,6 +156,7 @@ namespace Web_Browser_2._0_UWP
         private void Browser_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
         {
             StopButton.Visibility = Visibility.Visible;
+            BrowserProgress.Visibility = Visibility.Visible;
         }
 
         private void Browser_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
@@ -178,6 +180,7 @@ namespace Web_Browser_2._0_UWP
             {
                 ListViewItem lvi = new ListViewItem();
                 lvi.ContentTemplate = Application.Current.Resources["SmallHistoryDataTemplate"] as DataTemplate;
+                item.ImageSource = new BitmapImage(new Uri("https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + item.Url + "&size=16"));
                 lvi.DataContext = item;
                 lvi.Tag = item.Url;
 

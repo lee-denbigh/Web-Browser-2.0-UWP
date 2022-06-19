@@ -38,6 +38,8 @@ namespace DataAccessLibrary
 
                     historyDetails.Add(hd);
                 }
+
+                conn.Close();
             }
 
             return historyDetails;

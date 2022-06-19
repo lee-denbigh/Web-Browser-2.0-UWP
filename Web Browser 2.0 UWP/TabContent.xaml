@@ -136,8 +136,11 @@
             </Button>
         </Grid>
         
+        <!--Progress bar-->
+        <controls:ProgressBar x:Name="BrowserProgress" Grid.Row="1" VerticalAlignment="Top" Height="2" IsEnabled="False" IsIndeterminate="True" />
+
         <!--WebView2-->
-        <controls:WebView2 x:Name="Browser" Source="https://www.google.com" Grid.Row="1" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" NavigationCompleted="Browser_NavigationCompleted" NavigationStarting="Browser_NavigationStarting" CoreWebView2Initialized="Browser_CoreWebView2Initialized"/>
+        <controls:WebView2 x:Name="Browser" Source="https://www.google.com" Grid.Row="1" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" NavigationCompleted="Browser_NavigationCompleted" NavigationStarting="Browser_NavigationStarting" CoreWebView2Initialized="Browser_CoreWebView2Initialized" Margin="0 2 0 0"/>
         
     </Grid>
 </UserControl>

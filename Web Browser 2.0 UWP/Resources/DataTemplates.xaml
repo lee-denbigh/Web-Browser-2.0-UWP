@@ -4,13 +4,18 @@
 
     <!--Tab Header Template-->
     <DataTemplate x:Key="TabHeaderTemplate">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="18"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
             <Image Source="{Binding TabHeaderFavicon}"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Width="16" Height="16"/>
-            <TextBlock Text="{Binding TabHeaderTitle}" VerticalAlignment="Center" HorizontalAlignment="Left"
+            <TextBlock Text="{Binding TabHeaderTitle}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"
                        Margin="10,0,0,0" />
-        </StackPanel>
+        </Grid>
     </DataTemplate>
     
     <!--History List View Item-->
@@ -22,7 +27,7 @@
                 <ColumnDefinition Width="28"/>
             </Grid.ColumnDefinitions>
 
-            <Image Width="20" Source="Assets/StoreLogo.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Image Width="20" Source="{Binding ImageSource}" VerticalAlignment="Center" HorizontalAlignment="Center" />
             <TextBlock Text="{Binding Title}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0" />
             <FontIcon Width="20" Grid.Column="2" FontFamily="Segoe MDL2 Assets" Glyph="&#xE76C;" FontSize="10"/>
             
